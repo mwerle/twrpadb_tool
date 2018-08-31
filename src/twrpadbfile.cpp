@@ -11,6 +11,11 @@
 
 using namespace std;
 
+#if defined(_MSC_VER)
+#define STRDUP _strdup
+#else
+#define STRDUP strdup
+#endif
 
 TwrpAdbFile::TwrpAdbFile(const char *filename)
 {
@@ -28,7 +33,7 @@ TwrpAdbFile::TwrpAdbFile(const char *filename)
 	currPos = 0;
 
 	// Keep a copy of the filename and allocate memory
-	fname = _strdup(filename);
+	fname = STRDUP(filename);
 	if (!fname) {
 		cerr << "Could not allocate filename memory" << endl;
 		throw;
